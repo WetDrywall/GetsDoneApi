@@ -29,7 +29,7 @@ namespace GetsDoneApi.Controllers
             //var users = await _context.SaveUser.FromSqlRaw(Sqlstr, uid, name, email, password).ToListAsync();
             //return Ok(users);
 
-            var Sqlstr = "EXEC SaveUser";
+            var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password";
             SqlParameter parameterS = new SqlParameter("@UId", uid);
             SqlParameter parameterD = new SqlParameter("@Name", name);
             SqlParameter parameterP = new SqlParameter("@Email", email);
