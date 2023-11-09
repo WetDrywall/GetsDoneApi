@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GetsDoneApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class SaveWorkflowController : ControllerBase
     {
         private readonly SaveWorkflowContext _context;
@@ -22,7 +24,7 @@ namespace GetsDoneApi.Controllers
             SqlParameter parameterP = new SqlParameter("@Description", desc != null ? desc : "");
             SqlParameter parameterK = new SqlParameter("@WOwner", wOwner.ToString());
             SqlParameter parameterL = new SqlParameter("@WUser", wUser != null ? wUser : "");
-            var users = await _context.SaveWorkflow.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
+            var users = await _context.SaveWorkflow.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK, parameterL).ToListAsync();
             return Ok(users);
         }
     }
