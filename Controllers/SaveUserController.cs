@@ -27,46 +27,6 @@ namespace GetsDoneApi.Controllers
             SqlParameter parameterK = new SqlParameter("@Password", password != null ? password : "");
             var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
             return Ok(users);
-        }
-        //[HttpGet("{Id}")]
-        //public async Task<IActionResult> GetById(int Id)
-        //{
-        //    var Sqlstr = "EXEC Student @Id=" + Id;
-        //    var studentList = await _context.student.FromSqlRaw(Sqlstr).ToListAsync();
-        //    return Ok(studentList);
-
-        //}
-
-        //// GET: api/Customer
-        //[HttpGet]
-        //public ActionResult<IEnumerable<Users>> GetCustomers()
-        //{
-        //    return _context.Users.ToList();
-        //}
-
-        //// GET: api/Customer/1
-        //[HttpGet("{id}")]
-        //public ActionResult<Users> GetCustomer(int id)
-        //{
-        //    var customer = _context.Users.Find(id);
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return customer;
-        //}
-
-        //// POST: api/Customer
-        //[HttpPost]
-        //public ActionResult<Users> CreateCustomer(Users customer)
-        //{
-        //    if (customer == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    _context.Users.Add(customer);
-        //    _context.SaveChanges();
-        //    return CreatedAtAction(nameof(GetCustomer), new { id = customer.UId }, customer);
-        //}
+        }        
     }
 }
