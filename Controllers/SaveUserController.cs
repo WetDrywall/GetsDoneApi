@@ -20,20 +20,11 @@ namespace GetsDoneApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int uid, string name, string email, string password)
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                // Handle the error, for example, return a bad request
-                return BadRequest("Email cannot be null or empty");
-            }
-            //var Sqlstr = "EXEC SaveUser @UId='" + uid.ToString() + "', @Name='" + name + "', @Email='" + email + "', @Password='" + password + "'";
-            //var users = await _context.SaveUser.FromSqlRaw(Sqlstr, uid, name, email, password).ToListAsync();
-            //return Ok(users);
-
             var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password";
             SqlParameter parameterS = new SqlParameter("@UId", uid);
-            SqlParameter parameterD = new SqlParameter("@Name", name);
-            SqlParameter parameterP = new SqlParameter("@Email", email);
-            SqlParameter parameterK = new SqlParameter("@Password", password);
+            SqlParameter parameterD = new SqlParameter("@Name", name != null ? name : "");
+            SqlParameter parameterP = new SqlParameter("@Email", email != null ? email : "");
+            SqlParameter parameterK = new SqlParameter("@Password", password != null ? password : "");
             var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
             return Ok(users);
         }
