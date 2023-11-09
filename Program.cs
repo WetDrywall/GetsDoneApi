@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using GetsDoneApi.Models;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,11 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddDbContext<SaveUserContext>(options => 
+//builder.Services.AddDbContext<SaveUserContext>(options => 
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<SaveWorkflowContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
-//builder.Services.AddDbContext<TodoContext>(opt =>
-//    opt.UseInMemoryDatabase("TodoList"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
