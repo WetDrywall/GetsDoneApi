@@ -4,6 +4,7 @@ namespace GetsDoneApi.Models
 {
     public class ListWorkflowAssignment
     {
+        [Key]
         public int WFId { get; set; }
         public int AId { get; set; }
         public string Title { get; set; }

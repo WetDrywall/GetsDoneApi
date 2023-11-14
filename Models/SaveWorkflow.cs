@@ -4,6 +4,7 @@ namespace GetsDoneApi.Models
 {
     public class SaveWorkflow
     {
+        [Key]
         public int WFId { get; set; }
         [MaxLength(100)]
         public string Title { get; set; }
