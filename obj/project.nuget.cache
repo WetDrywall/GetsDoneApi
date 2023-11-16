@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "htEba8fvI1Mif15BBqCAbTb5LVQfv2zHdxwCd/ZaT42z5W2WTvziqcoXU9IP8ffwyM3Ho7hRjACS2n73UCDAXw==",
+  "dgSpecHash": "yoFi+HkjiQoiLT1SXzxRM2fIw6f/hFTGtpzSOVH5/cpSw5CuLbbUg0gcq6sf4ULitBMaCOClLJPjqPQqYDjWgg==",
   "success": true,
-  "projectFilePath": "C:\\Repos\\GetsDoneApi\\GetsDoneApi.csproj",
+  "projectFilePath": "E:\\Repos\\GetDoneApi\\GetsDoneApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TeisH\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\TeisH\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
