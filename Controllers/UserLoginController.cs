@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using NuGet.Protocol;
 
 namespace GetsDoneApi.Controllers
 {
@@ -37,8 +38,8 @@ namespace GetsDoneApi.Controllers
             {
                 token = CreateToken(users[0].UId);
             }
-
-            return Ok(users);
+            //return Ok(users);
+            return Ok(token.ToJson());
         }
 
         private string CreateToken(int uid)
