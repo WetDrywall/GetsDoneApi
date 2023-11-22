@@ -27,12 +27,13 @@ namespace GetsDoneApi.Controllers
 
             if (uid > 0 && expirationDate > DateTime.Now)
             {
-                var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password";
+                var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password, @SendEmail";
                 SqlParameter parameterS = new SqlParameter("@UId", uid);
                 SqlParameter parameterD = new SqlParameter("@Name", name != null ? name : "");
                 SqlParameter parameterP = new SqlParameter("@Email", email != null ? email : "");
                 SqlParameter parameterK = new SqlParameter("@Password", password != null ? password : "");
-                var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
+                SqlParameter parameterJ = new SqlParameter("@SendEmail", false);
+                var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK, parameterJ).ToListAsync();
                 return Ok(users);
             }
             return null;
