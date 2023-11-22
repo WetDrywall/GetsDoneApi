@@ -35,10 +35,7 @@ namespace GetsDoneApi.Controllers
             string token = "";
 
             if (users[0].Findes)
-            {
                 token = CreateToken(users[0].UId);
-            }
-            //return Ok(users);
             return Ok(token.ToJson());
         }
 
