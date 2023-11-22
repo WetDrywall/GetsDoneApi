@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using GetsDoneApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace GetsDoneApi.Controllers
 {
@@ -18,15 +19,23 @@ namespace GetsDoneApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int uid, string name, string email, string password)
+        public async Task<IActionResult> Get(string jwtToken, string name, string email, string password)
         {
-            var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password";
-            SqlParameter parameterS = new SqlParameter("@UId", uid);
-            SqlParameter parameterD = new SqlParameter("@Name", name != null ? name : "");
-            SqlParameter parameterP = new SqlParameter("@Email", email != null ? email : "");
-            SqlParameter parameterK = new SqlParameter("@Password", password != null ? password : "");
-            var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
-            return Ok(users);
+            var token = new JwtSecurityToken(jwtToken);
+            int uid = int.TryParse(token.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value, out int a) ? a : 0;
+            var expirationDate = token.ValidTo;
+
+            if (uid > 0 && expirationDate > DateTime.Now)
+            {
+                var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password";
+                SqlParameter parameterS = new SqlParameter("@UId", uid);
+                SqlParameter parameterD = new SqlParameter("@Name", name != null ? name : "");
+                SqlParameter parameterP = new SqlParameter("@Email", email != null ? email : "");
+                SqlParameter parameterK = new SqlParameter("@Password", password != null ? password : "");
+                var users = await _context.SaveUser.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK).ToListAsync();
+                return Ok(users);
+            }
+            return null;
         }        
     }
 }
