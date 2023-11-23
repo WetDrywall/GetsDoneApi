@@ -16,15 +16,16 @@ namespace GetsDoneApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int wfid, string title, string desc, int wOwner, string wUser)
+        public async Task<IActionResult> Get(int wfid, string title, string desc, int wOwner, string wUser, DateTime? deadline)
         {
-            var Sqlstr = "EXEC SaveWorkflow @WFId, @Title, @Description, @WOwner, @WUser";
+            var Sqlstr = "EXEC SaveWorkflow @WFId, @Title, @Description, @WOwner, @WUser, @Deadline";
             SqlParameter parameterS = new SqlParameter("@WFId", wfid.ToString());
             SqlParameter parameterD = new SqlParameter("@Title", title != null ? title : "");
             SqlParameter parameterP = new SqlParameter("@Description", desc != null ? desc : "");
             SqlParameter parameterK = new SqlParameter("@WOwner", wOwner.ToString());
             SqlParameter parameterL = new SqlParameter("@WUser", wUser != null ? wUser : "");
-            var users = await _context.SaveWorkflow.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK, parameterL).ToListAsync();
+            SqlParameter parameterJ = new SqlParameter("@Deadline", deadline != null ? deadline : DBNull.Value);
+            var users = await _context.SaveWorkflow.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK, parameterL, parameterJ).ToListAsync();
             return Ok(users);
         }
     }

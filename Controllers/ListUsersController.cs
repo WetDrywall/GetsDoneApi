@@ -19,21 +19,12 @@ namespace GetsDoneApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string jwtToken)
+        public async Task<IActionResult> Get(int uid)
         {
-            var token = new JwtSecurityToken(jwtToken);
-            int uid = int.TryParse(token.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value, out int a) ? a : 0;
-            var expirationDate = token.ValidTo;
-
-            if (uid > 0 && expirationDate > DateTime.Now)
-            {
-                var Sqlstr = "EXEC ListUsers @UId";
-                SqlParameter parameterS = new SqlParameter("@UId", uid);
-                var users = await _context.ListUsers.FromSqlRaw(Sqlstr, parameterS).ToListAsync();
-                return Ok(users);
-            }
-
-            return null;
+            var Sqlstr = "EXEC ListUsers @UId";
+            SqlParameter parameterS = new SqlParameter("@UId", uid);
+            var users = await _context.ListUsers.FromSqlRaw(Sqlstr, parameterS).ToListAsync();
+            return Ok(users);
         }        
     }
 }

@@ -12,5 +12,6 @@ namespace GetsDoneApi.Models
         [Required]
         public int WOwner { get; set; }
         public string WUser { get; set; }
+        public DateTime Deadline { get; set; }
     }
 }
