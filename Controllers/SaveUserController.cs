@@ -5,6 +5,7 @@ using GetsDoneApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.VisualBasic;
 
 namespace GetsDoneApi.Controllers
 {
@@ -21,11 +22,18 @@ namespace GetsDoneApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string jwtToken, string name, string email, string password)
         {
-            var token = new JwtSecurityToken(jwtToken);
-            int uid = int.TryParse(token.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value, out int a) ? a : 0;
-            var expirationDate = token.ValidTo;
+            int uid = 0;
+            var expirationDate = DateTime.Now.AddDays(1);
 
-            if (uid > 0 && expirationDate > DateTime.Now)
+            if (jwtToken != "new")
+            {
+                var token = new JwtSecurityToken(jwtToken);
+                uid = int.TryParse(token.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value, out int a) ? a : 0;
+                expirationDate = token.ValidTo;
+            }
+            
+
+            if ((uid > 0 && expirationDate > DateTime.Now) || (jwtToken == "new"))
             {
                 var Sqlstr = "EXEC SaveUser @UId, @Name, @Email, @Password, @SendEmail";
                 SqlParameter parameterS = new SqlParameter("@UId", uid);
