@@ -10,5 +10,6 @@ namespace GetsDoneApi.Models
         public string Description { get; set; }
         public int WOwner { get; set; }
         public int WUser { get; set; }
+        public string Deadline { get; set; }
     }
 }

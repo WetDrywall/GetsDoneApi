@@ -11,5 +11,6 @@ namespace GetsDoneApi.Models
         public string ADescription { get; set; }
         public int AssignmentNumber { get; set; }
         public bool Completed { get; set; }
+        public string Deadline { get; set; }
     }
 }
