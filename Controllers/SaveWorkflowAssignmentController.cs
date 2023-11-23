@@ -18,16 +18,17 @@ namespace GetsDoneApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int wfid, string title, string desc, int assignmentNumber, bool completed, DateTime? deadline)
+        public async Task<IActionResult> Get(int wfid, int aid, string title, string desc, int assignmentNumber, bool completed, DateTime? deadline)
         {
-            var Sqlstr = "EXEC SaveWorkflowAssignment @WFId, @Title, @Description, @WOwner, @WUser, @Deadline";
+            var Sqlstr = "EXEC SaveWorkflowAssignment @WFId, @AId, @Title, @Description, @AssignmentNumber, @Completed, @Deadline";
             SqlParameter parameterS = new SqlParameter("@WFId", wfid.ToString());
+            SqlParameter parameterSI = new SqlParameter("@AId", aid.ToString());
             SqlParameter parameterD = new SqlParameter("@Title", title != null ? title : "");
             SqlParameter parameterP = new SqlParameter("@Description", desc != null ? desc : "");
-            SqlParameter parameterK = new SqlParameter("@WOwner", assignmentNumber);
-            SqlParameter parameterL = new SqlParameter("@WUser", completed);
+            SqlParameter parameterK = new SqlParameter("@AssignmentNumber", assignmentNumber);
+            SqlParameter parameterL = new SqlParameter("@Completed", completed);
             SqlParameter parameterJ = new SqlParameter("@Deadline", deadline != null ? deadline : DBNull.Value);
-            var users = await _context.SaveWorkflowAssignment.FromSqlRaw(Sqlstr, parameterS, parameterD, parameterP, parameterK, parameterL, parameterJ).ToListAsync();
+            var users = await _context.SaveWorkflowAssignment.FromSqlRaw(Sqlstr, parameterS, parameterSI, parameterD, parameterP, parameterK, parameterL, parameterJ).ToListAsync();
             return Ok(users);
         }
     }

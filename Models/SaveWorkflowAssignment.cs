@@ -4,8 +4,8 @@ namespace GetsDoneApi.Models
 {
     public class SaveWorkflowAssignment
     {
-        [Key]
         public int WFId { get; set; }
+        [Key]
         public int AId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
